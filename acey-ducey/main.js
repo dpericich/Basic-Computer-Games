@@ -36,7 +36,7 @@ async function main() {
     displayFlipCard(flipCard)
     textDivides();
 
-    checkFlipCard(currentHand, flipCard);
+    checkFlipCard(currentHand, flipCard, name);
   }
 
   readline.close();
@@ -119,15 +119,14 @@ const displayFlipCard = (flipCard) => {
   console.log(`Your flip card is a ${flipCard[0].card} of ${flipCard[0].suit}.`)
 }
 
-const checkFlipCard = (currentHand, flipCard) => {
+const checkFlipCard = (currentHand, flipCard, name) => {
   let middleValue = flipCard[0].value;
   let currentHandValues = currentHand.map(card => card.value);
 
-  console.log(middleValue, currentHandValues)
   if ( currentHandValues[0] < middleValue && middleValue < currentHandValues[1]) {
-    console.log('You Won!')
+    console.log(`${name}, you won!`)
   } else {
-    console.log('Better Luck Next Time...')
+    console.log(`${name}, better luck next time...`)
     textDivides();
   }
 }
