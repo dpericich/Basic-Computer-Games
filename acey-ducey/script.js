@@ -4,6 +4,8 @@
 // or pass based on if they believe the next card dealt will be
 // within the dealt cards
 
+const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require('constants');
+
 // https://nodejs.dev/learn/how-to-use-the-nodejs-repl
 
 const readline = require('readline').createInterface({
@@ -14,6 +16,21 @@ const readline = require('readline').createInterface({
 // TODO: Need to figure out how to have a continous readline in the background for quitting
 // probably not continous, just have a method that checks at each user input for a 'q'
 // there are inflection points for quitting
+
+// What is the sequence for this game?
+// Print rules
+// ask for name
+// initialize the Game object
+
+// this is the loop
+// ask if the player wants to play
+// get 2 cards from the deck
+// display numbers to the player
+// ask the player if they think the next card will be between the two
+// get the number a player wants to bet
+// get a card and check if it's in the range
+// based on the result update the player's money
+// ask to play again
 
 
 
@@ -41,30 +58,14 @@ function displayRules(){
   console.log('\n')
 }
 
+function initializeGame(){
+  const name = askForName();
+  const game = new Game(name);
+}
+
 introScreen();
 displayRules();
-// Have an input of whether the user is ready to play (Y/n)
-
-// take string inputs from the terminal
-
-
-// Maybe have a game object that keeps track of the
-// Have a deck class that creates an object that tracks what is
-// happening for each card
-
-class Deck {
-  constructor() {
-    cards: getCards();
-  }
-
-  shuffle(){
-    // this will reset the 'drawn' value for all cards to
-  }
-
-  deal(){
-    // this will draw 2 random cards and mark them as used
-  }
-}
+initializeGame();
 
 
 // Practice with getting input from the user
@@ -83,6 +84,13 @@ class Deck {
 // Do you want to hit -> yes or no for looking at input
 // -> will need to have a helper method to clean the input
 // -> also validate that the input is good
+
+function askForName() {
+  readline.question(`What is your name? `, answer => {
+    console.log(answer)
+    readline.close();
+  })
+}
 
 function askForMove() {
   readline.question(`Do you thing the third card will be in range? (Y/n) `, answer => {
@@ -105,5 +113,85 @@ function formatAnswer(answer){
 
 askForMove();
 
+// Initialization consists of:
+// get user's name
+// set user's balance
 
-// Every round consists of
+// Every round consists of:
+// Call Deck.get_cards(); -> should get the high and low values as well as the third card
+// Print out the low and high card
+//
+
+// The game stores the name, balance, deck of cards and hand
+// The deck of cards creates a deck of cards, draws the two then one cards and keeps track of which cards have been drawn
+// The hand keeps track of the low and high cards as well as the thrid card
+
+// Maybe have a game object that keeps track of the
+// Have a deck class that creates an object that tracks what is
+// happening for each card
+
+class Deck {
+  // A Deck should:
+  // 1) create a deck of 52 cards
+  // 2) be able to shuffle the 52 cards
+  // 3) find and return an array of hashes where the first element is lower than the second
+  // 4) draw a third card
+  constructor() {
+    cards: {}
+  }
+
+  getDeck() {
+    let cards = {};
+
+  }
+
+  // What does a card consist of?
+  // {idx: { 'suit', 'type, 'numberValue } }
+
+
+  shuffle(){
+    // this will reset the 'drawn' value for all cards to
+  }
+
+  deal(){
+    // this will draw 2 random cards and mark them as used
+  }
+}
+class Hand {
+  constructor(twoCards, thirdCard) {
+    this.lowCard = twoCards[0];
+    this.highCard = twoCards[1];
+    this.thirdCard = thirdCard;
+  }
+}
+class Game {
+  constructor(name="Player 1") {
+    this.name = name;
+    this.balance = 100;
+    this.handsPlayed = 0;
+    this.wins = 95;
+    this.loses = 0;
+    this.deck = new Deck();
+    this.currentHand = new Hand();
+  }
+
+  trackHandsPlayed() {
+    this.handsPlayed++;
+  }
+
+  addWin(){
+    this.wins++;
+  }
+
+  addLoss(){
+    this.loss++;
+  }
+
+  updateBalance(amount){
+    this.balance += amount
+  }
+
+  getTwoCards() {
+    return this.deck.getTwoCards();
+  }
+}
