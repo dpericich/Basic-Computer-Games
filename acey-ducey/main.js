@@ -88,9 +88,9 @@ class Deck {
 }
 
 const checkDeck = (deck) => {
-  console.log('I have run out of cards...')
-  console.log('Shuffling quickly, please wait!')
   if (deck.deck.length < 3) {
+    console.log('I have run out of cards...')
+    console.log('Shuffling quickly, please wait!')
     deck.createDeck();
     deck.shuffleDeck();
   }
