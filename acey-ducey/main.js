@@ -19,7 +19,7 @@ async function main() {
 
   while(continueGame === true) {
     keepPlaying = await input("Would you like to keep playing? (Y/n) ");
-    if (keepPlaying == 'n') break;
+    if (keepPlaying.toLowerCase() == 'n') break;
 
 
     checkDeck(deck);
@@ -29,7 +29,7 @@ async function main() {
     textDivides();
 
     bet = await input("Would you like to play this hand? (Y/n) ");
-    if (bet == 'n') continue;
+    if (bet.toLowerCase() == 'n') continue;
 
     let flipCard = deck.drawCards(1);
     textDivides();
