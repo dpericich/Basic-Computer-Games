@@ -51,7 +51,11 @@ const buildGuessedLetters = (spaces: string): void => {
 }
 
 const updateGuessedLetters = (): void => {
-  guessedLetters.innerText = incorrectLetters.join('');
+  guessedLetters.innerText = incorrectLetters.join(' ');
+}
+
+const updateCorrectLetters = (): void => {
+  letterSpaces.innerText = letters.join(' ');
 }
 
 const generateWordSpots = (word: string): void => {
@@ -129,7 +133,7 @@ const createLetterInputButton = (): HTMLButtonElement => {
 }
 
 const setImageStage = (stage: number): void => {
-  stageImage.src = `assets/stage${stage}.png`
+  stageImage.src = `assets/stage${stage}.png`;
 }
 
 const updateGame = (): void => {
@@ -139,14 +143,15 @@ const updateGame = (): void => {
   // 2) check for invalid input
   if (validateLetterInput(inputValue)) {
     const cleanGuess = cleanInput(inputValue);
+    console.log(cleanGuess);
     // 1) Then update correct letters
     const correctIndexes = checkCorrectLetters(cleanGuess);
 
     if (correctIndexes.length > 0) {
-      updateCorrectLetters(correctIndexes, cleanGuess);
+      updateCorrectLettersCollection(correctIndexes, cleanGuess);
     } else {
       // 2) Update incorrect letters
-      updateIncorrectLetters(currentStage, cleanGuess);
+      updateIncorrectLetters(cleanGuess);
       // update the image
       setImageStage(currentStage)
     }
@@ -154,11 +159,13 @@ const updateGame = (): void => {
     alert('Sorry, that\'s not a valid guess.');
   }
   // 3) handle input
-  // -> if correct input, determine if the letter is part of the word or not
-  // -> => update correct letters if yes
-  // -> => update incorrect letters and the image if no
-  // -> => if incorrect prompt user that the input is incorrect
+  if (letters.length == correctLetters.length) {
+    alert('You Win!')
+    gameOver();
+  }
+
   if (currentStage == 6) {
+    alert('You Lost...')
     gameOver();
   }
 }
@@ -178,33 +185,32 @@ const cleanInput = (input: string): string => {
 
 const checkCorrectLetters = (letter: string): number[] => {
   const correctIndexes: number[] = [];
+  console.log('I was hit!')
   console.log(letters);
 
-  letters.forEach((currentLetter, idx) => {
+  correctLetters.forEach((currentLetter, idx) => {
+    console.log('These are the values')
+    console.log(currentLetter, idx)
     if (currentLetter == letter) { correctIndexes.push(idx) }
   })
 
   console.log(correctIndexes);
 
   return correctIndexes;
-  // check if the letter is contained within the word
-  // if yes then find the indexes and update the display word
-  // otherwise we want to update the score, add the letter to the incorrect guesses and change the image
 }
 
-const updateCorrectLetters = (letterIdx: number[], correctLetter: string): void => {
+const updateCorrectLettersCollection = (letterIdx: number[], correctLetter: string): void => {
   for (let correctIdx of letterIdx) {
     letters[correctIdx] = correctLetter;
   }
+
+  updateCorrectLetters()
 }
 
-const updateIncorrectLetters = (currentStage: number, incorrectLetter: string): void  => {
-  console.log('I was hit!')
+const updateIncorrectLetters = (incorrectLetter: string): void  => {
   incorrectLetters[currentStage] = incorrectLetter;
-  console.log(incorrectLetter);
   updateGuessedLetters();
   currentStage++;
-  console.log(currentStage)
 }
 
 // Stage 1 -> Load

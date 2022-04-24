@@ -53,7 +53,10 @@ var buildGuessedLetters = function (spaces) {
     });
 };
 var updateGuessedLetters = function () {
-    guessedLetters.innerText = incorrectLetters.join('');
+    guessedLetters.innerText = incorrectLetters.join(' ');
+};
+var updateCorrectLetters = function () {
+    letterSpaces.innerText = letters.join(' ');
 };
 var generateWordSpots = function (word) {
     var wordLetters = word.split('');
@@ -127,14 +130,15 @@ var updateGame = function () {
     // 2) check for invalid input
     if (validateLetterInput(inputValue)) {
         var cleanGuess = cleanInput(inputValue);
+        console.log(cleanGuess);
         // 1) Then update correct letters
         var correctIndexes = checkCorrectLetters(cleanGuess);
         if (correctIndexes.length > 0) {
-            updateCorrectLetters(correctIndexes, cleanGuess);
+            updateCorrectLettersCollection(correctIndexes, cleanGuess);
         }
         else {
             // 2) Update incorrect letters
-            updateIncorrectLetters(currentStage, cleanGuess);
+            updateIncorrectLetters(cleanGuess);
             // update the image
             setImageStage(currentStage);
         }
@@ -147,7 +151,12 @@ var updateGame = function () {
     // -> => update correct letters if yes
     // -> => update incorrect letters and the image if no
     // -> => if incorrect prompt user that the input is incorrect
+    if (letters.length == correctLetters.length) {
+        alert('You Win!');
+        gameOver();
+    }
     if (currentStage == 6) {
+        alert('You Lost...');
         gameOver();
     }
 };
@@ -164,8 +173,11 @@ var cleanInput = function (input) {
 };
 var checkCorrectLetters = function (letter) {
     var correctIndexes = [];
+    console.log('I was hit!');
     console.log(letters);
-    letters.forEach(function (currentLetter, idx) {
+    correctLetters.forEach(function (currentLetter, idx) {
+        console.log('These are the values');
+        console.log(currentLetter, idx);
         if (currentLetter == letter) {
             correctIndexes.push(idx);
         }
@@ -176,19 +188,17 @@ var checkCorrectLetters = function (letter) {
     // if yes then find the indexes and update the display word
     // otherwise we want to update the score, add the letter to the incorrect guesses and change the image
 };
-var updateCorrectLetters = function (letterIdx, correctLetter) {
+var updateCorrectLettersCollection = function (letterIdx, correctLetter) {
     for (var _i = 0, letterIdx_1 = letterIdx; _i < letterIdx_1.length; _i++) {
         var correctIdx = letterIdx_1[_i];
         letters[correctIdx] = correctLetter;
     }
+    updateCorrectLetters();
 };
-var updateIncorrectLetters = function (currentStage, incorrectLetter) {
-    console.log('I was hit!');
+var updateIncorrectLetters = function (incorrectLetter) {
     incorrectLetters[currentStage] = incorrectLetter;
-    console.log(incorrectLetter);
     updateGuessedLetters();
     currentStage++;
-    console.log(currentStage);
 };
 // Stage 1 -> Load
 var play = function () {
