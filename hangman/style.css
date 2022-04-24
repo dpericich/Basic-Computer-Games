@@ -25,6 +25,8 @@ main {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  color: red;
+  font-size: 3.5rem;
 }
 
 .guessed-letter {
@@ -34,10 +36,10 @@ main {
   text-decoration: underline black;
 }
 
-.guessed-letter.active {
+/* .guessed-letter.active {
   color: red;
   text-decoration: underline red;
-}
+} */
 
 .input-container {
   display: flex;
@@ -76,6 +78,8 @@ main {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  font-size: 3.5rem;
+  color: green;
 }
 
 .letter-input {
