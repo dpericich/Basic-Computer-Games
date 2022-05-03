@@ -80,7 +80,7 @@ const addInputDisplay = (): void => {
 
   guessButton.addEventListener('click', updateGame)
 
-  const inputChildren = [inputLabel, letterInput, guessButton];
+  const inputChildren: (HTMLLabelElement | HTMLInputElement | HTMLButtonElement)[] = [inputLabel, letterInput, guessButton];
 
   for (let el of inputChildren) {
     inputContainer.appendChild(el)
