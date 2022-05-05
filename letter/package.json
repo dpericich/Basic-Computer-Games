@@ -1,0 +1,14 @@
+{
+  "name": "letter",
+  "version": "1.0.0",
+  "description": "Letters is a game that models with letters how a binary search work. The user will play against the computer in a game that consists of the computer randomly getting a letter for the user to guess. With each guess by the player, the computer will respond higher or lower until the player guesses the correct letter.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.6.4"
+  }
+}
