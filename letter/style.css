@@ -1,0 +1,71 @@
+:root {
+  font-size: 62.5%;
+  --back-color-prim: #122c34;
+  --back-color-sec: #224870;
+  --font-color-prim: #2a4494;
+  --font-color-sec: #4ea5d9;
+  --font-color-tri: #44cfcb;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  background-color: var(--back-color-sec);
+  color: var(--back-color-prim)
+}
+
+.game-container {
+  width: 600px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin: 2rem auto 0;
+  padding: 1.5rem;
+  border: solid var(--back-color-prim) 1rem;
+  border-radius: 5px;
+  background-color: var(--font-color-sec);
+  /* Maybe remove or change this later */
+  box-shadow: 5px 5px 20px var(--font-color-tri);
+}
+
+.game-title {
+  font-size: 4rem;
+  text-transform: uppercase;
+}
+
+.rules-container {
+  font-size: 2rem;
+  width: 75%;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.guess-label {
+  font-size: 2rem;
+  text-transform: uppercase;
+  margin-right: .5rem;
+}
+
+.guess-input {
+  font-size: 2rem;
+  margin-right: .5rem;
+  outline: none;
+  width: 4rem;
+}
+
+.guess-button {
+  font-size: 2rem;
+  padding: .5rem;
+}
+
+.guess-button:active {
+  transform: translateY(2px);
+}
