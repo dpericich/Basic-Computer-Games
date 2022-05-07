@@ -69,3 +69,6 @@ body {
 .guess-button:active {
   transform: translateY(2px);
 }
+
+
+/* Media Queries */
